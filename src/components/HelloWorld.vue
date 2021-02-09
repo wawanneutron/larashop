@@ -147,5 +147,14 @@
         },
       ],
     }),
+    created () {
+    window.axios.get('http://larashop-api.test/buku/Learning API vue js')
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
   }
 </script>
