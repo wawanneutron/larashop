@@ -148,13 +148,14 @@
       ],
     }),
     created () {
-    window.axios.get('http://larashop-api.test/buku/Learning API vue js')
+    window.axios.get('http://larashop-api.test/v1/books')
     .then((response) => {
       console.log(response)
     })
     .catch((error) => {
       console.log(error);
     })
-  }
+  },
+  
   }
 </script>
