@@ -147,18 +147,7 @@
         },
       ],
     }),
-    created () {
-    window.axios.get('http://larashop-api.test/v1/books')
-    .then((response) => {
-      console.log(response)
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  },
-  mounted(){
-    console.log(process.env);
-  }
+   
   
   }
 </script>

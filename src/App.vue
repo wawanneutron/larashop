@@ -60,7 +60,7 @@
       </template>
       <v-list>
         <v-list-item
-          v-for="(item, index) in menus"
+          v-for="(item, index) in menus" 
           :key="`menu-` + index"
           :to="item.route"
           color="primary"
@@ -74,9 +74,13 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-main>
-      <HelloWorld/>
-    </v-main>
+    <v-content>
+      <v-container fluid>
+        <v-slide-y-transition>
+          <router-view></router-view>
+        </v-slide-y-transition>
+      </v-container>
+    </v-content>
     <v-card>
       <v-footer absolute app>
         <v-card-text class="text-center">
@@ -88,14 +92,9 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
 
 export default {
   name: 'App',
-
-  components: {
-    HelloWorld,
-  },
 
   data: () => ({
     drawer: false,
