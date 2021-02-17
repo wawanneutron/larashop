@@ -156,6 +156,9 @@
       console.log(error);
     })
   },
+  mounted(){
+    console.log(process.env);
+  }
   
   }
 </script>
