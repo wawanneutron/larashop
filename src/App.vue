@@ -1,9 +1,11 @@
 <template>
   <v-app>
+    <!-- menampilkan di halaman home saja dengan methos isHome -->
     <v-app-bar
       app
       color="primary"
       dark
+      v-if="isHome"
     >
       <!--form pencarian -->
       <v-text-field 
@@ -29,6 +31,23 @@
           <v-icon>mdi-cart</v-icon>
         </v-badge>
       </v-btn>
+    </v-app-bar>
+    <!-- jika halaman bukan home tampilan panah back -->
+    <v-app-bar 
+      app
+      color="success"
+      dark
+      v-else>
+      <v-btn icon @click.stop="$router.go(-1)">
+        <v-icon>mdi-arrow-left-circle</v-icon>
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-badge color="orange" overlap>
+        <template v-slot:badge>
+          <span>3</span>
+        </template>
+        <v-icon>mdi-cart</v-icon>
+      </v-badge>
     </v-app-bar>
     <v-navigation-drawer app v-model="drawer">
       <v-list-item v-if="!guest">
@@ -104,5 +123,10 @@ export default {
     ],
     guest: false
   }),
+  computed: {
+    isHome() {
+      return (this.$route.path === '/')
+    }
+  }
 };
 </script>

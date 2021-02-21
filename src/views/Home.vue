@@ -72,8 +72,8 @@ export default {
     console.log('get data books');
     this.axios.get('books/top-books/4')
       .then((response) => {
-        let { data } = response.data
-        this.books = data
+        let { dataBooks } = response.data.data
+        this.books = dataBooks
       })
       .catch((error) => {
         let { response } = error
