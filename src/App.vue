@@ -18,7 +18,7 @@
         </v-text-field>
         
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Vueshop</v-toolbar-title>
+      <v-toolbar-title to="/">{{  appName  }}</v-toolbar-title>
         <!-- v-spacer pembatas -->
         <v-spacer></v-spacer>
       <v-btn icon to="/about">
@@ -74,13 +74,13 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <v-slide-y-transition>
           <router-view></router-view>
         </v-slide-y-transition>
       </v-container>
-    </v-content>
+    </v-main>
     <v-card>
       <v-footer absolute app>
         <v-card-text class="text-center">

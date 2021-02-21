@@ -11,13 +11,13 @@
         <v-flex
           v-for="category in categories"
           :key="`category` + category.id" xs6>
-          <v-card :to="'/category/' + category.slug">
+          <v-card :to="'/category/' + category.slug" class=" blue-grey">
             <v-img 
-              :src="category.image" 
-              class=" white--text"
+              :src="getImage(category.image)" 
+              class=" blue--text" width="130" height="130"
               >
               <v-card-title 
-                class=" fill-height align-end"
+                class=" fill-height align-end white--text"
                 v-text="category.name">
               </v-card-title>
             </v-img>
@@ -35,9 +35,9 @@
       <v-layout wrap class="mt-3">
         <v-flex 
           v-for="book in books" 
-          :key="`book-` + book.id">
+          :key="`book-` + book.id" xs6>
           <v-card :to="'/books/' + book.slug">
-            <v-img :src="book.cover" class=" white--text">
+            <v-img :src="getImage(book.cover)" class=" white--text"> 
               <v-card-title 
                 class=" fill-height align-end"
                 v-text="book.title">
@@ -54,51 +54,32 @@
 
 export default {
   data: () => ({
-    categories: [
-      {
-        id: 1,
-        image: 'https://via.placeholder.com/150',
-        name: 'Ekonomi',
-        slug: 'ekonomi'
-      },
-      {
-        id: 2,
-        image: 'https://via.placeholder.com/150',
-        name: 'Agama',
-        slug: 'agama' 
-      },
-      
-    ],
-     books: [
-      {
-        id: 1,
-        cover: 'https://via.placeholder.com/150',
-        title: 'Laravel 7',
-        slug: 'laravel-7'
+    categories: [],
+    books:[],
+  }),
+  created() {
+    console.log('get data categories');
+    this.axios.get('/categories/2')
+      .then((response) => {
+        let { data } = response.data
+        this.categories = data 
+      })
+      .catch((error) => {
+        let { response } = error
+        console.log(response);
+      })
 
-      },
-      {
-        id: 2,
-        cover: 'https://via.placeholder.com/150',
-        title: 'Vue 2.6',
-        slug: 'vue-2-6'
-
-      },
-      {
-        id: 3,
-        cover: 'https://via.placeholder.com/150',
-        title: 'PHP 7.4',
-        slug: 'php-7-4'
-
-      },
-      {
-        id: 4,
-        cover: 'https://via.placeholder.com/150',
-        title: 'NodeJS 12',
-        slug: 'nodejs-12'
-      }
-      
-    ]
-  })
+    console.log('get data books');
+    this.axios.get('books/top-books/4')
+      .then((response) => {
+        let { data } = response.data
+        this.books = data
+      })
+      .catch((error) => {
+        let { response } = error
+        console.log(response);
+      })
+  },
+  
 }
 </script>
