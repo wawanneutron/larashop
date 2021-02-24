@@ -124,7 +124,7 @@ export default {
     guest: false
   }),
   computed: {
-    isHome() {
+    isHome() { //menampilkan dihalaman home saja
       return (this.$route.path === '/')
     }
   }

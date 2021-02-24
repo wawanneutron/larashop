@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-container class="ma-0 pa-0" grid-list-sm>
+    <v-container class="ma-0 pa-0" grid-list-md>
       <v-subheader class=" mt-3 mb-3">All Category</v-subheader>
       <v-layout wrap>
         <v-flex 
           v-for="(category) in categories"
           :key="`category` + category.id" xs6 md4 lg3>
-          <v-card :to="'/category/'">
+          <v-card :to="'/category/' + category.slug">
             <v-img
               :src="getImage(category.image)">
               <v-card-title 
