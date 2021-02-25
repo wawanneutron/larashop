@@ -10,7 +10,7 @@
       <v-layout wrap class=" mt-3">
         <v-flex
           v-for="category in categories"
-          :key="`category` + category.id" xs6>
+          :key="`category` + category.id" xs6 md4 lg3>
           <v-card :to="'/category/' + category.slug" class=" blue-grey">
             <v-img 
               :src="getImage(category.image)" 
@@ -26,7 +26,7 @@
       </v-layout>
     </v-container>
     <!-- template book -->
-    <v-container class=" ma-0 pa-0 mt-3" grid-list-sm>
+    <v-container class=" ma-0 pa-0 mt-3" grid-list-md>
       <div class="text-right">
         <v-btn small text to="/books" class=" blue--text">
           All Books <v-icon>mdi-chevron-right</v-icon>
@@ -35,9 +35,9 @@
       <v-layout wrap class="mt-3">
         <v-flex 
           v-for="book in books" 
-          :key="`book-` + book.id" xs6>
-          <v-card :to="'/books/' + book.slug">
-            <v-img :src="getImage(book.cover)" class=" white--text"> 
+          :key="`book-` + book.id" xs6 lg3 md4>
+          <v-card :to="'/book/' + book.slug">
+            <v-img :src="getImage(book.cover)" class=" white--text" height="320"> 
               <v-card-title 
                 class=" fill-height align-end"
                 v-text="book.title">
@@ -59,7 +59,7 @@ export default {
   }),
   created() {
     console.log('get data categories');
-    this.axios.get('/categories/2')
+    this.axios.get('/categories/4')
       .then((response) => {
         let { data } = response.data
         this.categories = data 

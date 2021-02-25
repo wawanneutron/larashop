@@ -30,7 +30,13 @@ const routes = [
     path: '/category/:slug',
     name: 'Category',
     component: () => import('../views/Category.vue')
-  }
+  },
+  {
+    path: '/book/:slug',
+    name: 'Book',
+    component: () => import('../views/Book.vue')
+  },
+
 
 ]
 

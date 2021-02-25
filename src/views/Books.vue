@@ -6,8 +6,8 @@
         <v-flex 
           v-for="book in books"
           :key="`Book-` + book.id" xs6 md4 lg3>
-          <v-card :to="'/detail'" >
-            <v-img :src="getImage(book.cover)">
+          <v-card :to="'/book/' + book.slug" >
+            <v-img :src="getImage(book.cover)" height="320">
               <v-card-title
                 class=" fill-height align-end"
                 v-text="book.title">
@@ -21,7 +21,7 @@
       v-model="page"
       @input="go"
       :length="lengthPage"
-      :total-visible="4">
+      :total-visible="5">
     </v-pagination>
   </div>
 </template>
