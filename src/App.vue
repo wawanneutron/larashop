@@ -20,7 +20,7 @@
         </v-text-field>
         
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title to="/">{{  appName  }}</v-toolbar-title>
+      <v-toolbar-title to="/home">{{  appName  }}</v-toolbar-title>
         <!-- v-spacer pembatas -->
         <v-spacer></v-spacer>
       <v-btn icon to="/about">

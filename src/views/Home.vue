@@ -26,7 +26,7 @@
       </v-layout>
     </v-container>
     <!-- template book -->
-    <v-container class=" ma-0 pa-0 mt-3" grid-list-md>
+    <v-container class=" ma-0 pa-0 mt-3" grid-list-lg>
       <div class="text-right">
         <v-btn small text to="/books" class=" blue--text">
           All Books <v-icon>mdi-chevron-right</v-icon>
@@ -38,11 +38,11 @@
           :key="`book-` + book.id" xs6 lg3 md4>
           <v-card :to="'/book/' + book.slug">
             <v-img :src="getImage(book.cover)" class=" white--text" height="320"> 
-              <v-card-title 
-                class=" fill-height align-end"
-                v-text="book.title">
-              </v-card-title>
             </v-img>
+            <v-card-title 
+              class=" fill-height align-end"
+              v-text="book.title">
+            </v-card-title>
           </v-card>
         </v-flex>
       </v-layout>

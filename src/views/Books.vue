@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container class="ma-0 pa-0" grid-list-md>
+    <v-container class="ma-0 pa-0" grid-list-lg>
       <v-subheader class="mt-3 mb-3">All Books</v-subheader>
       <v-layout wrap>
         <v-flex 
@@ -8,11 +8,11 @@
           :key="`Book-` + book.id" xs6 md4 lg3>
           <v-card :to="'/book/' + book.slug" >
             <v-img :src="getImage(book.cover)" height="320">
-              <v-card-title
-                class=" fill-height align-end"
-                v-text="book.title">
-              </v-card-title>
             </v-img>
+            <v-card-title
+              class=" fill-height align-end"
+              v-text="book.title">
+            </v-card-title>
           </v-card>
         </v-flex>
       </v-layout>
