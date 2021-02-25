@@ -11,17 +11,7 @@
         <v-flex
           v-for="category in categories"
           :key="`category` + category.id" xs6 md4 lg3>
-          <v-card :to="'/category/' + category.slug" class=" blue-grey">
-            <v-img 
-              :src="getImage(category.image)" 
-              class=" blue--text" width="130" height="130"
-              >
-              <v-card-title 
-                class=" fill-height align-end white--text"
-                v-text="category.name">
-              </v-card-title>
-            </v-img>
-          </v-card>
+          <CardCategory :category="category"></CardCategory>
         </v-flex>
       </v-layout>
     </v-container>
@@ -36,14 +26,7 @@
         <v-flex 
           v-for="book in books" 
           :key="`book-` + book.id" xs6 lg3 md4>
-          <v-card :to="'/book/' + book.slug">
-            <v-img :src="getImage(book.cover)" class=" white--text" height="320"> 
-            </v-img>
-            <v-card-title 
-              class=" fill-height align-end"
-              v-text="book.title">
-            </v-card-title>
-          </v-card>
+          <card-book :book="book"></card-book>
         </v-flex>
       </v-layout>
     </v-container>
@@ -51,12 +34,17 @@
 </template>
 
 <script>
-
 export default {
   data: () => ({
     categories: [],
     books:[],
   }),
+  /* panggil component */
+  components: {
+    CardCategory: () => import('@/components/CardCategory.vue'),
+    CardBook: () => import('@/components/CardBook.vue')
+  },
+
   created() {
     console.log('get data categories');
     this.axios.get('/categories/4')

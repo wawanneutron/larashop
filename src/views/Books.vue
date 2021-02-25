@@ -6,18 +6,12 @@
         <v-flex 
           v-for="book in books"
           :key="`Book-` + book.id" xs6 md4 lg3>
-          <v-card :to="'/book/' + book.slug" >
-            <v-img :src="getImage(book.cover)" height="320">
-            </v-img>
-            <v-card-title
-              class=" fill-height align-end"
-              v-text="book.title">
-            </v-card-title>
-          </v-card>
+          <card-book :book="book"></card-book>
         </v-flex>
       </v-layout>
     </v-container>
-    <v-pagination 
+    <v-pagination
+      circle   
       v-model="page"
       @input="go"
       :length="lengthPage"
@@ -33,6 +27,10 @@ export default {
     page: 0,
     lengthPage: 0
   }),
+  /* ambil komponent book */
+  components: {
+    CardBook: () => import ('../components/CardBook.vue')
+  },
 
   created() {
     this.go()

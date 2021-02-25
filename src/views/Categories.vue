@@ -6,19 +6,12 @@
         <v-flex 
           v-for="(category) in categories"
           :key="`category` + category.id" xs6 md4 lg3>
-          <v-card :to="'/category/' + category.slug">
-            <v-img
-              :src="getImage(category.image)">
-              <v-card-title 
-                class=" fill-height align-end"
-                v-text="category.name">
-              </v-card-title>
-            </v-img>
-          </v-card>
+          <card-category :category="category"></card-category>
         </v-flex>
       </v-layout>
     </v-container>
   <v-pagination
+    circle
     v-model="page"
     @input="go"
     :length="lengthPage"
@@ -34,6 +27,11 @@ export default {
       page: 0,
       lengthPage: 0
     }),
+
+    components: {
+      CardCategory: () => import ('../components/CardCategory.vue')
+    },
+
     created() {
       this.go()
     },

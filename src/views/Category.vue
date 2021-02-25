@@ -9,21 +9,13 @@
         </v-card-title>
       </v-img>
     </v-card>
-    <v-container class=" ma-0 pa-0" grid-list-md v-if="books">
+    <v-container class=" ma-0 pa-0" grid-list-lg v-if="books">
       <v-subheader>All Books</v-subheader>
       <v-layout wrap>
         <v-flex 
           v-for="book in books"
           :key="`book-` + book.id" xs6 md4 lg3>
-            <v-card :to="'/book/' + book.slug">
-              <v-img
-                :src="getImage(book.cover)">
-                  <v-card-title 
-                    class=" fill-height align-end blue--text"
-                    v-text="book.title">
-                  </v-card-title>
-              </v-img>
-            </v-card>
+          <card-book :book="book"></card-book>
         </v-flex>
       </v-layout>
     </v-container>
@@ -48,6 +40,10 @@ export default {
     page: 0,
     lengthPage: 0
   }),
+
+  components: {
+    CardBook: () => import ('../components/CardBook.vue')
+  },
   
   created() {
     this.go()

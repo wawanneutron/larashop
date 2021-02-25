@@ -27,7 +27,8 @@
             </tr>
             <tr>
               <td><v-icon>mdi-format-list-bulleted</v-icon>Stock</td>
-              <td>{{ book.stock }}</td>
+              <td v-if="book.stock == 0"> <span>stock kosong</span></td>
+              <td v-else> {{ book.stock }} </td>
             </tr>
             <tr>
               <td><v-icon>mdi-eye</v-icon>Views</td>
@@ -71,6 +72,8 @@
 
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data: () => ({
     book: {}
@@ -92,8 +95,12 @@ export default {
       })
   },
   methods: {
+    ...mapActions({
+      addCart: 'cart/add'
+    }),
+
     buy(){
-      alert('hii')
+      this.addCart(this.book)
     }
   }
 
