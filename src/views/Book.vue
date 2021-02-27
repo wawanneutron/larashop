@@ -96,11 +96,17 @@ export default {
   },
   methods: {
     ...mapActions({
-      addCart: 'cart/add'
+      addCart: 'cart/add',
+      setAlert : 'alert/set'
     }),
 
     buy(){
       this.addCart(this.book)
+      this.setAlert({
+        status : true,
+        color : 'deep-purple',
+        text : 'Added to cart',
+      })
     }
   }
 

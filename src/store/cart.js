@@ -52,6 +52,11 @@ export default {
   },
 
   getters: {
-    carts: state => state.carts
+    carts : state => state.carts,
+    /* menghitung jumlah jenis barang 
+    yang tersimpan didalam keranjang belanja */
+    count : (state) => {
+      return state.carts.length
+    }
   },
 }

@@ -23,12 +23,13 @@
       <v-toolbar-title to="/home">{{  appName  }}</v-toolbar-title>
         <!-- v-spacer pembatas -->
         <v-spacer></v-spacer>
-      <v-btn icon to="/about">
-        <v-badge color="orange" overlap>
-          <template v-slot:badge>
-            <span>3</span>
-          </template>
-          <v-icon>mdi-cart</v-icon>
+      <v-btn icon to="/about" >
+        <v-badge
+          color="pink"
+          :content="countCart"
+          :value="countCart"
+          overlap>
+        <v-icon >mdi-cart</v-icon>
         </v-badge>
       </v-btn>
     </v-app-bar>
@@ -42,14 +43,15 @@
         <v-icon>mdi-arrow-left-circle</v-icon>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-badge color="orange" overlap>
-        <template v-slot:badge>
-          <span>3</span>
-        </template>
-        <v-icon>mdi-cart</v-icon>
+      <v-badge 
+        color="pink"
+        :content="countCart"
+        :value="countCart"
+        overlap>
+        <v-icon >mdi-cart</v-icon>
       </v-badge>
     </v-app-bar>
-    <v-navigation-drawer app v-model="drawer">
+    <v-navigation-drawer app v-model="drawer">      
       <v-list-item v-if="!guest">
         <v-list-item-avatar>
           <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
@@ -76,6 +78,7 @@
             Logout
           </v-btn>
         </div>
+        
       </template>
       <v-list>
         <v-list-item
@@ -93,27 +96,29 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
     <v-main>
+      <!-- alert notification -->
+      <alert></alert>
       <v-container fluid>
         <v-slide-y-transition>
           <router-view></router-view>
         </v-slide-y-transition>
       </v-container>
     </v-main>
-    <v-card>
-      <v-footer absolute app>
-        <v-card-text class="text-center">
-          &copy; {{ new Date().getFullYear() }} - <strong>wawan setiawan</strong>
-        </v-card-text>
-      </v-footer>
-    </v-card>
+    <Navigation></Navigation>
   </v-app>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'App',
+  components: {
+    Alert: () => import('@/components/Alert.vue'),
+    Navigation: () => import('@/components/BottomNavigation.vue')
+  },
 
   data: () => ({
     drawer: false,
@@ -126,7 +131,10 @@ export default {
   computed: {
     isHome() { //menampilkan dihalaman home saja
       return (this.$route.path === '/')
-    }
+    },
+    ...mapGetters({
+      countCart : 'cart/count'
+    })
   }
 };
 </script>
