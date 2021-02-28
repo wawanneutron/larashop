@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <v-toolbar dark color="primary">
+  <v-card >
+    <v-toolbar dark color="primary" >
       <v-btn icon dark @click.native="close">
         <v-icon>mdi-close</v-icon>
       </v-btn>
@@ -32,7 +32,7 @@
             :key="`book-` + book.id"
             class=" mt-5"
             xs6 md4 lg3>
-            <card-book :book="book"></card-book>
+            <card-book :book="book" @click.native="close"></card-book>
           </v-flex>
         </v-layout>
       </v-container>
@@ -70,7 +70,7 @@ export default {
       }
     },
     close(){
-      this.$emit('closed', false)
+      this.$emit('closed', false) 
     }
   }
 }

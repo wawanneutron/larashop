@@ -97,8 +97,8 @@ export default {
   methods: {
     // maping
     ...mapActions({
-      addCart: 'cart/add',
-      setAlert : 'alert/set'
+      addCart: 'cart/add', //ambil dari module cart
+      setAlert : 'alert/set' //ambil dari module alert
     }),
     // ketika tombol buy diklik
     buy(){
