@@ -16,6 +16,7 @@
         label="Search"
         prepend-inner-icon="mdi-magnify"
         solo-inverted
+        @click="dialog = true"
         >
         </v-text-field>
         
@@ -100,13 +101,20 @@
     <v-main>
       <!-- alert notification -->
       <alert></alert>
+      <!-- search fullscrean -->
+      <v-dialog
+        v-model="dialog"
+        fullscreen
+        hide-overlay
+        transition="scale-transition">
+          <search @closed="closeDialog"></search>
+      </v-dialog>
       <v-container fluid>
         <v-slide-y-transition>
           <router-view></router-view>
         </v-slide-y-transition>
       </v-container>
     </v-main>
-    <Navigation></Navigation>
   </v-app>
 </template>
 
@@ -117,24 +125,32 @@ export default {
   name: 'App',
   components: {
     Alert: () => import('@/components/Alert.vue'),
-    Navigation: () => import('@/components/BottomNavigation.vue')
+    Search : () => import('@/components/Search.vue')
   },
-
   data: () => ({
     drawer: false,
+    guest: false,
+    dialog: false,
+
     menus: [
       { title: 'Home', icon: 'mdi-home', route: '/' },
       { title: 'About', icon: 'mdi-account', route: '/about' },
     ],
-    guest: false
   }),
   computed: {
-    isHome() { //menampilkan dihalaman home saja
+    //menampilkan dihalaman home saja
+    isHome() { 
       return (this.$route.path === '/')
     },
+    // menampilkan data pada cart
     ...mapGetters({
       countCart : 'cart/count'
     })
+  },
+  methods:{
+    closeDialog(value){
+      this.dialog = value      
+    }
   }
 };
 </script>

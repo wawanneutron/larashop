@@ -95,11 +95,12 @@ export default {
       })
   },
   methods: {
+    // maping
     ...mapActions({
       addCart: 'cart/add',
       setAlert : 'alert/set'
     }),
-
+    // ketika tombol buy diklik
     buy(){
       this.addCart(this.book)
       this.setAlert({
