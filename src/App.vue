@@ -16,7 +16,7 @@
         label="Search"
         prepend-inner-icon="mdi-magnify"
         solo-inverted
-        @click="setDialogComponent('search')"
+        @click="setDialogComponent('Search')"
         >
         </v-text-field>
         
@@ -53,7 +53,7 @@
       </v-badge>
     </v-app-bar>
     <v-navigation-drawer app v-model="drawer">      
-      <v-list-item v-if="!guest">
+      <v-list-item >
         <v-list-item-avatar>
           <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
         </v-list-item-avatar>
@@ -62,8 +62,9 @@
         </v-list-item-content>
         
       </v-list-item>
-      <div class=" pa-2" v-if="guest">
-        <v-btn block color="primary" class=" mb-2">
+      <div class=" pa-2">
+        <v-btn block color="primary" class=" mb-2"
+        @click="setDialogComponent('Login')">
           <v-icon left>mdi-lock</v-icon>
           Login
         </v-btn>
@@ -72,7 +73,7 @@
           Register
         </v-btn>
       </div>
-      <template v-slot:append v-if="!guest">
+      <template v-slot:append>
         <div class="pa-2">
           <v-btn block color="red" dark>
             <v-icon left>mdi-lock</v-icon>
@@ -111,7 +112,7 @@
           fullscreen
           hide-overlay
           transition="dialog-bottom-transition">
-           <!--@closed kita menggunakan component Search.vue -->
+           <!--@closed kita menggunakan component artinya tutup fullscrean -->
           <component :is="currentComponent" @closed="setDialogStatus"></component>
         </v-dialog>
       </keep-alive>
@@ -130,12 +131,13 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'App',
   components: {
+    //import compoennt denggan teknik lazyload
     Alert: () => import('@/components/Alert.vue'),
-    Search : () => import('@/components/Search.vue')
+    Search : () => import('@/components/Search.vue'),
+    Login : () => import('@/views/Login.vue')
   },
   data: () => ({
     drawer: false, //togler btn
-    guest: false, //auth
 
     menus: [
       { title: 'Home', icon: 'mdi-home', route: '/' },

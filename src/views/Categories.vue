@@ -4,8 +4,8 @@
       <v-subheader class=" mt-3 mb-3">All Category</v-subheader>
       <v-layout wrap>
         <v-flex 
-          v-for="(category) in categories"
-          :key="`category` + category.id" xs6 md4 lg3>
+          v-for="category in categories"
+          :key="`category-` + category.id" xs6 md4 lg3>
           <card-category :category="category"></card-category>
         </v-flex>
       </v-layout>
@@ -29,7 +29,7 @@ export default {
     }),
 
     components: {
-      CardCategory: () => import ('../components/CardCategory.vue')
+      CardCategory: () => import ('@/components/CardCategory.vue')
     },
 
     created() {

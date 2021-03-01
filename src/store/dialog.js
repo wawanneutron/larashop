@@ -2,14 +2,14 @@ export default {
   namespaced: true,
   state: {
     status: false,
-    component: 'search', //search,login, or other
+    component: 'Search', //search,login, or other
   },
   mutations: {
     setStatus: (state, status) => {
       state.status = status
     },
     setComponent: (state, component) => {
-      state.status = component
+      state.component = component
     }
   },
   actions: {

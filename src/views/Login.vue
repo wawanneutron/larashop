@@ -1,0 +1,113 @@
+<template>
+  <v-card>
+    <v-toolbar dark color="pink">
+      <v-btn icon dark @click.native="close">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+      <v-toolbar-title>Login and start shooping</v-toolbar-title>
+    </v-toolbar>
+    <v-divider></v-divider>
+    <v-container fluid>
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          v-model="email"
+          :rules="emailRules"
+          label="email"
+          required
+          append-icon="mdi-email">
+        </v-text-field>
+        <v-text-field
+          v-model="password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="passwordRules"
+          :type="showPassword ? 'text' : 'password'"
+          label="password"
+          hint="At least 6 characters"
+          counter
+          @click:append="showPassword = !showPassword">
+        </v-text-field>
+        <div class="text-xs-center">
+          <v-btn 
+            color="accent lighten-1"
+            :disabled="!valid"
+            @click="submit">
+              Login
+              <v-icon right dark>mdi-lock-open</v-icon> 
+          </v-btn>
+        </div>
+      </v-form>
+    </v-container>
+  </v-card>
+</template>
+
+<script>
+import { mapGetters, mapActions } from "vuex";
+export default {
+  name: 'login',
+  data () {
+    return {
+      valid: true,
+      email: 'ztowne@example.net',
+      emailRules: [
+        v => !!v || 'email is required',
+        v => /([a-zA-Z0-9_]{1,})(@)([a-zA-Z0-9_]{2,}).([a-zA-Z0-9_]{2,})+/.test(v) || 'E-mail must be valid'
+      ],
+      showPassword: false,
+      password: '',
+      passwordRules: [
+        v => !!v || 'Password required.',
+        v => (v && v.length >= 6) || 'Min 6 characters',
+      ]
+    }
+  },
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+    })
+  },
+  methods: {
+    ...mapActions({
+      setAlert: 'alert/set',
+      setAuth: 'auth/set'
+    }),
+    submit() {
+      if (this.$refs.form.validate()) {
+        let formData = {
+          'email' : this.email,
+          'password' : this.password
+        }
+        this.axios.post('/login', formData)
+          .then((response) => {
+            let { data } = response.data
+            this.setAuth(data)
+            if(this.user.id > 0) {
+              this.setAlert({
+                status : true,
+                color : 'success',
+                text : 'Login success',
+              })
+              this.close()
+            } else {
+              this.setAlert({
+                status : true,
+                color : 'error',
+                text : 'Login failed',
+              })
+            }
+          })
+        .catch((error) => {
+          let responses   = error.response 
+          this.setAlert({
+            status : true,
+            text : responses.data.message,
+            color : 'error'
+          })
+        })
+      }
+    },
+    close() { //tutup fullscrean
+      this.$emit('closed', false)
+    }
+  }
+}
+</script>

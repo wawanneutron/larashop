@@ -1,6 +1,6 @@
 export default {
   namespaced: true,
-  stste: {
+  state: {
     user: {}
   },
   mutations: {
