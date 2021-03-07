@@ -76,6 +76,7 @@ export default {
           'email' : this.email,
           'password' : this.password
         }
+        
         this.axios.post('/login', formData)
           .then((response) => {
             let { data } = response.data

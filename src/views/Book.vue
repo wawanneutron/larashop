@@ -78,7 +78,7 @@ export default {
   data: () => ({
     book: {}
   }),
-
+  
   created() {
     let { slug } = this.$route.params
     let url = '/book/slug/' + slug
@@ -97,7 +97,7 @@ export default {
   methods: {
     // maping
     ...mapActions({
-      addCart: 'cart/add', //ambil dari module cart
+      addCart: 'cart/addCart', //ambil dari module cart
       setAlert : 'alert/set' //ambil dari module alert
     }),
     // ketika tombol buy diklik

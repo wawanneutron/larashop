@@ -7,7 +7,7 @@
     top>
     {{ text }}
      <template v-slot:action="{ attrs }">
-        <v-btn dark text @click="close" v-bind="attrs">
+        <v-btn dark text @click="closeAlert" v-bind="attrs">
           <v-icon>mdi-close-circle</v-icon>
         </v-btn>
      </template>
@@ -26,27 +26,21 @@ export default {
       text : 'alert/text'
     }),
     alert: {
-      get() {
+      get() { //get method bawaan vue js
         return this.status
       },
-      set (value) {
-        this.setAlert({
-          status : value,
-          type : 'success',
-          text : 'test'
-        })
-      }
     }
   }, 
   methods: {
     ...mapActions({
       setAlert : 'alert/set'
     }),
-    close() {
+    closeAlert() {
       this.setAlert({
         status : false
       })
-    }
+    },
+    
   }
 }
 </script>

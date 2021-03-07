@@ -24,7 +24,8 @@
       <v-toolbar-title to="/home">{{  appName  }}</v-toolbar-title>
         <!-- v-spacer pembatas -->
         <v-spacer></v-spacer>
-      <v-btn icon to="/about" >
+      <v-btn icon 
+        @click.native="setDialogComponent('Cart')" >
         <v-badge
           color="pink"
           :content="countCart"
@@ -48,34 +49,41 @@
         color="pink"
         :content="countCart"
         :value="countCart"
-        overlap>
+        overlap
+        @click.native="setDialogComponent('Cart')"
+        >
         <v-icon >mdi-cart</v-icon>
       </v-badge>
     </v-app-bar>
     <v-navigation-drawer app v-model="drawer">      
       <v-list-item >
         <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+          <v-img :src="getImage(user.avatar)"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>Wawan Setiawan</v-list-item-title>
+          <v-list-item-title>  {{  user.name }} </v-list-item-title>
         </v-list-item-content>
         
       </v-list-item>
-      <div class=" pa-2">
+      <div class=" pa-2" v-if="guest">
         <v-btn block color="primary" class=" mb-2"
-        @click="setDialogComponent('Login')">
-          <v-icon left>mdi-lock</v-icon>
-          Login
+          @click="setDialogComponent('Login')">
+            <v-icon left>mdi-lock</v-icon>
+            Login
         </v-btn>
-        <v-btn block color="success" class=" mb-4">
-          <v-icon left>mdi-account</v-icon>
-          Register
+        <v-btn block color="success" class=" mb-4"
+          @click="setDialogComponent('Register')">
+            <v-icon left>mdi-account</v-icon>
+            Register
         </v-btn>
       </div>
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn block color="red" dark>
+          <v-btn 
+            v-if="!guest"
+            block color="red" 
+            dark
+            @click="logout">
             <v-icon left>mdi-lock</v-icon>
             Logout
           </v-btn>
@@ -134,11 +142,12 @@ export default {
     //import compoennt denggan teknik lazyload
     Alert: () => import('@/components/Alert.vue'),
     Search : () => import('@/components/Search.vue'),
-    Login : () => import('@/views/Login.vue')
+    Login : () => import('@/views/Login.vue'),
+    Register : () => import('@/views/Register.vue'),
+    Cart: () => import('@/components/Cart.vue')
   },
   data: () => ({
     drawer: false, //togler btn
-
     menus: [
       { title: 'Home', icon: 'mdi-home', route: '/' },
       { title: 'About', icon: 'mdi-account', route: '/about' },
@@ -147,8 +156,36 @@ export default {
   methods: {
     ...mapActions({
       setDialogStatus: 'dialog/setStatus',
-      setDialogComponent: 'dialog/setComponent'
-    })
+      setDialogComponent: 'dialog/setComponent',
+      setAuth: 'auth/set',
+      setAlert: 'alert/set'
+    }),
+    /* function logout */
+    logout() {
+      let tokenLogout = {
+        headers: {
+          'Authorization' : 'Bearer ' + this.user.api_token
+        }
+      }
+      /* response API logout */
+      this.axios.post('/logout', {}, tokenLogout)
+        .then(() => {
+          this.setAuth({}) //kosongkan auth ketika logout
+          this.setAlert({
+            status: true,
+            color: 'success',
+            text: 'logout successfully'
+          })
+        })
+        .catch((error) => {
+          let { data } = error.response
+          this.setAlert({
+            status: true,
+            color: 'error',
+            text: data.message
+          })
+        })
+    },
   },
   computed: {
     //menampilkan dihalaman home saja
@@ -156,7 +193,7 @@ export default {
       return (this.$route.path === '/')
     },
     ...mapGetters({
-      countCart : 'cart/count', //menampilkan jumlh cart
+      countCart : 'cart/countCarts', //menampilkan jumlh cart
       guest : 'auth/guest',
       user : 'auth/user',
       dialogStatus : 'dialog/status',
