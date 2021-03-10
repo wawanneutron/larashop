@@ -173,9 +173,10 @@ export default {
           this.setAuth({}) //kosongkan auth ketika logout
           this.setAlert({
             status: true,
-            color: 'success',
+            color: 'orange',
             text: 'logout successfully'
           })
+          this.drawer = false
         })
         .catch((error) => {
           let { data } = error.response
