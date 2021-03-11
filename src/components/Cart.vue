@@ -84,7 +84,7 @@ export default {
     }),
     checkout() {
       this.close()
-      this.$router.push({path: '/checkout'})
+      this.$router.push({ path: '/checkout' })
     },
     close() {
       this.$emit('closed', false)
